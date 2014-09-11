@@ -3,8 +3,8 @@ package drunken.me.web.model;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import drunken.me.web.util.CustomDateSerializer;
 import org.joda.time.DateTime;
-
-import java.util.Date;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 /**
  * Created by sionsmith on 11/09/2014.
@@ -22,6 +22,8 @@ public class Car {
 
     private DateTime insertedDate;
 
+    private static DateTimeFormatter formatter = DateTimeFormat.forPattern("dd-MM-yyyy");
+
     public Car() {
     }
 
@@ -30,6 +32,8 @@ public class Car {
         this.model = model;
         this.make = make;
         this.manufactureDate = manufactureDate;
+        this.insertedDate = new DateTime();
+
     }
 
     public Long getId() {

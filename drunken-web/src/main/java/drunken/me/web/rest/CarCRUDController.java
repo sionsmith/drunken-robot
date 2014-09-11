@@ -35,7 +35,12 @@ public class CarCRUDController {
     @ResponseStatus(HttpStatus.CREATED)
     public Car addCar(@RequestBody Car car){
 
-        return carService.addCar(car);
+        Car addedCar = carService.addCar(car);
+
+        if(addedCar != null){
+            return addedCar;
+        }else
+            return null;
     }
 
     /**

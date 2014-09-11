@@ -17,12 +17,29 @@
     <context:annotation-config />
     <context:component-scan base-package="drunken.me.web" />
 
-    <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager">
-        <mvc:message-converters register-defaults="false">   <!-- defaults for spring mvc 4 are jaxb and jackson2 -->
-            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
-            <bean class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
-                <property name="marshaller" ref="xstreamMarshaller" />
-                <property name="unmarshaller" ref="xstreamMarshaller" />
+    <bean id="objectMapper"
+          class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean"
+          p:indentOutput="true" p:simpleDateFormat="dd-MM-yyyy">
+    </bean>
+    <bean
+            class="org.springframework.beans.factory.config.MethodInvokingFactoryBean"
+            p:targetObject-ref="objectMapper" p:targetMethod="registerModule">
+        <property name="arguments">
+            <list>
+                <bean class="com.fasterxml.jackson.datatype.joda.JodaModule" />
+            </list>
+        </property>
+    </bean>
+
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter" />
+            <bean
+                    class="org.springframework.http.converter.ResourceHttpMessageConverter" />
+
+            <bean
+                    class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper" ref="objectMapper" />
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
@@ -41,15 +58,6 @@
     <bean id="jsonMediaType" class="org.springframework.http.MediaType">
         <constructor-arg value="application"/>
         <constructor-arg value="json"/>
-    </bean>
-
-    <bean id="xstreamMarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller">
-        <property name="autodetectAnnotations" value="true" />
-        <property name="aliases">
-            <props>
-                <prop key="car">drunken.me.web.model.Car</prop>
-            </props>
-        </property>
     </bean>
 
 </beans>
