@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://sionsmith.com/schema/spring-logback"
+            targetNamespace="http://sionsmith.com/schema/spring-logback"
+            elementFormDefault="qualified" attributeFormDefault="unqualified"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:element name="configurer">
+        <xsd:complexType>
+            <xsd:attribute name="configuration" type="xsd:string" use="required" />
+            <xsd:attribute name="environment" type="environment" use="required" />
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:simpleType name="environment">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="local"/>
+            <xsd:enumeration value="staging1"/>
+            <xsd:enumeration value="staging2"/>
+            <xsd:enumeration value="preprod"/>
+            <xsd:enumeration value="prod"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>

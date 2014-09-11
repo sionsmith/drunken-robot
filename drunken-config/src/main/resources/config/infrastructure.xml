@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+
+    <!--&lt;!&ndash;We could use a <context:property-placeholder but intelliJ seems to be complaining about the locations we specify even though they are correct&ndash;&gt;-->
+
+    <!--<import resource="classpath:/drunken-profiles.xml"/>-->
+
+
+
+</beans>
