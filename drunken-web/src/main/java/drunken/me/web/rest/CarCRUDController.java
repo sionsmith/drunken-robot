@@ -23,8 +23,7 @@ public class CarCRUDController {
     private CarService carService;
 
     @Inject
-    public CarCRUDController(@Named("carService") CarService carService)
-    {
+    public CarCRUDController(@Named("carService") CarService carService){
         this.carService=carService;
     }
 
@@ -34,7 +33,6 @@ public class CarCRUDController {
     @RequestMapping(value = "/add",  method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Car addCar(@RequestBody Car car){
-
         Car addedCar = carService.addCar(car);
 
         if(addedCar != null){
@@ -49,15 +47,18 @@ public class CarCRUDController {
      * @return
      */
     @RequestMapping( value = "/update", method = RequestMethod.POST)
-    public HttpStatus updateCar(@RequestBody Car carToUpdate){
+    @ResponseStatus(HttpStatus.OK)
+    public Car updateCar(@RequestBody Car carToUpdate){
+        if(carToUpdate != null && carToUpdate.getId() != null && carToUpdate.getId() != 0){
+            Car updatedCar = carService.updateCar(carToUpdate);
 
-        Car updatedCar = carService.updateCar(carToUpdate);
+            //if car is returned then it is updated correctly.
+            if(updatedCar != null)
+                return updatedCar;
+        }
+        //cannot update car.
+        return null;
 
-        //if car is returned then it is updated correctly.
-        if(updatedCar != null)
-            return HttpStatus.OK;
-        else
-            return HttpStatus.BAD_REQUEST;
     }
 
     /**

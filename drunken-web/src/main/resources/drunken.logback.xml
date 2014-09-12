@@ -1,41 +1,13 @@
 <configuration scan="true" debug="true">
 
-    <!--<if condition='"prod".equalsIgnoreCase(property("environment"))'>-->
-        <!--<then>-->
-            <!--<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
-                <!--<file>/home/apps/flashed/logs/FlashedWeb.log</file>-->
-                <!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
-                    <!--<fileNamePattern>/home/apps/flashed/logs/FlashedWeb.%d{yyyy-MM-dd}.log</fileNamePattern>-->
-                    <!--<maxHistory>30</maxHistory>-->
-                <!--</rollingPolicy>-->
-                <!--<encoder>-->
-                    <!--<pattern>%-5level [%-15thread] %date{HH:mm:ss,SSS} %logger{35} - %msg%n</pattern>-->
-                <!--</encoder>-->
-            <!--</appender>-->
-        <!--</then>-->
-    <!--</if>-->
-
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%-5level [%-15thread] %date{HH:mm:ss,SSS} %logger{35} - %msg%n</pattern>
         </encoder>
     </appender>
 
-    <!--<if condition='"local".equalsIgnoreCase(property("environment"))'>-->
-        <!--<then>-->
-            <root level="DEBUG">
-                <appender-ref ref="STDOUT"/>
-            </root>
-            <!--<logger name="at.flashed.common">-->
-                <!--<level value="info" />-->
-            <!--</logger>-->
-        <!--</then>-->
-        <!--<else>-->
-            <!--<root level="info">-->
-                <!--<appender-ref ref="STDOUT"/>-->
-                <!--<appender-ref ref="FILE"/>-->
-            <!--</root>-->
-        <!--</else>-->
-    <!--</if>-->
+    <root level="DEBUG">
+        <appender-ref ref="STDOUT"/>
+    </root>
 
 </configuration>
