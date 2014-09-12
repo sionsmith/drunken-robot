@@ -27,7 +27,7 @@ public class Car {
     public Car() {
     }
 
-    public Car(long id, String model, String make, DateTime manufactureDate) {
+    public Car(long id, String make, String model, DateTime manufactureDate) {
         this.id = id;
         this.model = model;
         this.make = make;

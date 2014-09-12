@@ -1,5 +1,6 @@
 package drunken.me.web.service;
 
+import drunken.me.web.exception.CarNotFoundException;
 import drunken.me.web.model.Car;
 
 /**
@@ -7,13 +8,13 @@ import drunken.me.web.model.Car;
  */
 public interface CarService {
 
-    public Car getCar(long id);
+    public Car getCar(long id) throws CarNotFoundException;
 
     public Car addCar(Car car);
 
     public long getCarCount();
 
-    public Car updateCar(Car toUpdate);
+    public Car updateCar(Car toUpdate) throws CarNotFoundException;
 
-    public boolean deleteCar(long id);
+    public boolean deleteCar(long id) throws CarNotFoundException;
 }

@@ -1,5 +1,6 @@
 package drunken.me.web.rest;
 
+import drunken.me.web.exception.CarNotFoundException;
 import drunken.me.web.model.Car;
 import drunken.me.web.service.CarService;
 import org.slf4j.Logger;
@@ -48,7 +49,7 @@ public class CarCRUDController {
      */
     @RequestMapping( value = "/update", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public Car updateCar(@RequestBody Car carToUpdate){
+    public Car updateCar(@RequestBody Car carToUpdate) throws CarNotFoundException {
         if(carToUpdate != null && carToUpdate.getId() != null && carToUpdate.getId() != 0){
             Car updatedCar = carService.updateCar(carToUpdate);
 
@@ -68,7 +69,7 @@ public class CarCRUDController {
      */
     @RequestMapping( value = "/delete/{id}", method = RequestMethod.POST)
     public
-    HttpStatus deleteCar(@PathVariable("id") Long idOfCarToDelete){
+    HttpStatus deleteCar(@PathVariable("id") Long idOfCarToDelete) throws CarNotFoundException{
         logger.debug("Deleting car with id: " + idOfCarToDelete);
         return carService.deleteCar(idOfCarToDelete)?HttpStatus.OK:HttpStatus.BAD_REQUEST;
         
@@ -81,7 +82,7 @@ public class CarCRUDController {
      */
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public Car getCar(@PathVariable("id") Long id) {
+    public Car getCar(@PathVariable("id") Long id) throws CarNotFoundException {
         logger.debug("Looking for car with id: " + id);
         return carService.getCar(id);
     }

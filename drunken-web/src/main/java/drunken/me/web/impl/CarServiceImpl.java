@@ -1,5 +1,6 @@
 package drunken.me.web.impl;
 
+import drunken.me.web.exception.CarNotFoundException;
 import drunken.me.web.model.Car;
 import drunken.me.web.service.CarService;
 import org.joda.time.DateTime;
@@ -46,16 +47,15 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Car getCar(long id) {
+    public Car getCar(long id) throws CarNotFoundException {
         logger.info("Retrieving id {}",id);
         for (Car car : cars) {
-            if (car.getId()==id)
-            {
+            if (car.getId()==id){
                 return car;
             }
         }
-        //cant find anything return null;
-        return null;
+        //cant find anything throw exception;
+        throw new CarNotFoundException("Failed to find car using id: " + id);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class CarServiceImpl implements CarService {
         if(car != null){
             if(StringUtils.hasText(car.getMake()) && StringUtils.hasText(car.getModel()) && car.getManufactureDate() != null){
                 int idTodSet=atomicInteger.getAndIncrement();
-                Car newCarToAdd = new Car(idTodSet, car.getModel(), car.getMake(), car.getManufactureDate());
+                Car newCarToAdd = new Car(idTodSet, car.getMake(), car.getModel(), car.getManufactureDate());
                 cars.add(newCarToAdd);
                 return newCarToAdd;
             }
@@ -84,7 +84,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Car updateCar(Car modified) {
+    public Car updateCar(Car modified) throws CarNotFoundException{
         //find car to update
         if(modified.getId() != null){
             Car toUpdate = getCar(modified.getId());
@@ -98,7 +98,7 @@ public class CarServiceImpl implements CarService {
 
 
     @Override
-    public boolean deleteCar(long id) {
+    public boolean deleteCar(long id) throws CarNotFoundException {
         Car toDelete = getCar(id);
         if(toDelete != null){
             //delete the car
